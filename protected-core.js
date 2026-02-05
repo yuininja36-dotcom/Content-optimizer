@@ -7,7 +7,7 @@ Unauthorized reproduction, distribution, or modification of this software
 is strictly prohibited under applicable copyright and intellectual property laws.
 
 Violators will be prosecuted to the fullest extent of the law.
-For licensing inquiries, contact: licensing@contentoptimizer.com
+For licensing inquiries, contact: gavin_maxson324@hotmail.com
 
 This software contains proprietary algorithms and trade secrets protected
 by intellectual property law. Reverse engineering, decompilation, or

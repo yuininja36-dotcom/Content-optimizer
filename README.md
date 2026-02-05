@@ -86,7 +86,7 @@ No installation required! Just open the HTML file in your browser.
 - ✅ Personal use (free version only)
 - ✅ Commercial use (with valid license)
 
-For licensing inquiries: **licensing@contentoptimizer.com**
+For licensing inquiries: **gavin_maxson324@hotmail.com**
 
 ### IP Protection Features:
 - Domain-based license validation

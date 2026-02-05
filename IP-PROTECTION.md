@@ -116,8 +116,8 @@ Your Content Optimizer software now includes comprehensive intellectual property
 - Consider professional IP legal advice
 
 ## Contact for Legal Issues
-- **Licensing**: licensing@contentoptimizer.com
-- **Legal**: legal@contentoptimizer.com
+- **Licensing**: gavin_maxson324@hotmail.com
+- **Legal**: gavin_maxson324@hotmail.com
 
 ## Next Steps
 1. Set up license validation server

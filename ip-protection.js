@@ -7,7 +7,7 @@ Unauthorized reproduction, distribution, or modification of this software
 is strictly prohibited under applicable copyright and intellectual property laws.
 
 Violators will be prosecuted to the fullest extent of the law.
-For licensing inquiries, contact: licensing@contentoptimizer.com
+For licensing inquiries, contact: gavin_maxson324@hotmail.com
 
 This software contains proprietary algorithms and trade secrets protected
 by intellectual property law. Reverse engineering, decompilation, or
@@ -357,7 +357,7 @@ class IPProtectionSystem {
                     This incident has been logged and may result in legal action.
                     All activity has been recorded for evidence.
                 </p>
-                <button onclick="window.location.href='mailto:legal@contentoptimizer.com'" 
+                <button onclick="window.location.href='mailto:gavin_maxson324@hotmail.com'" 
                         style="background: #ef4444; color: white; padding: 15px 30px; border: none; 
                                border-radius: 6px; font-size: 16px; cursor: pointer;">
                     Contact Legal Department

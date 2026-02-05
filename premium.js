@@ -7,7 +7,7 @@ Unauthorized reproduction, distribution, or modification of this software
 is strictly prohibited under applicable copyright and intellectual property laws.
 
 Violators will be prosecuted to the fullest extent of the law.
-For licensing inquiries, contact: licensing@contentoptimizer.com
+For licensing inquiries, contact: gavin_maxson324@hotmail.com
 
 This software contains proprietary algorithms and trade secrets protected
 by intellectual property law. Reverse engineering, decompilation, or
@@ -161,7 +161,7 @@ class PremiumFeatures {
                     <p>Domain: ${this.currentDomain}</p>
                     <p>Time: ${new Date().toLocaleString()}</p>
                 </div>
-                <button onclick="window.location.href='mailto:licensing@contentoptimizer.com'" 
+                <button onclick="window.location.href='mailto:gavin_maxson324@hotmail.com'" 
                         style="background: white; color: #dc2626; padding: 15px 30px; border: none; 
                                border-radius: 6px; font-size: 16px; cursor: pointer; margin-right: 10px;">
                     Contact Licensing
