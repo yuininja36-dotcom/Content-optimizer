@@ -1,3 +1,24 @@
+/*
+Copyright © 2025 Content Optimizer
+All Rights Reserved
+
+This software is the intellectual property of Content Optimizer.
+Unauthorized reproduction, distribution, or modification of this software
+is strictly prohibited under applicable copyright and intellectual property laws.
+
+Violators will be prosecuted to the fullest extent of the law.
+For licensing inquiries, contact: licensing@contentoptimizer.com
+
+This software contains proprietary algorithms and trade secrets protected
+by intellectual property law. Reverse engineering, decompilation, or
+any attempt to extract source code is prohibited.
+
+LICENSE RESTRICTIONS:
+- This file may only be used on domains with valid Content Optimizer license
+- Commercial use requires explicit written permission
+- Redistribution in any form is prohibited
+*/
+
 // Premium Features for Content Optimizer
 // These features will be unlocked with paid subscriptions
 
@@ -7,6 +28,205 @@ class PremiumFeatures {
         this.userPlan = 'free';
         this.articleCount = 0;
         this.maxFreeArticles = 5;
+        this.licenseKey = null;
+        this.authorizedDomains = [];
+        this.initLicenseSystem();
+    }
+
+    // Initialize license validation system
+    initLicenseSystem() {
+        this.currentDomain = window.location.hostname;
+        this.validateLicense();
+        
+        // Periodic license validation (every 5 minutes)
+        setInterval(() => this.validateLicense(), 300000);
+        
+        // Track unauthorized usage attempts
+        this.trackUsage();
+    }
+
+    // Validate current domain license
+    validateLicense() {
+        const storedLicense = localStorage.getItem('contentOptimizerLicense');
+        
+        if (!storedLicense) {
+            this.checkUnauthorizedUse();
+            return false;
+        }
+
+        try {
+            const license = JSON.parse(storedLicense);
+            this.licenseKey = license.key;
+            this.authorizedDomains = license.domains || [];
+            this.userPlan = license.plan || 'free';
+            
+            // Check if current domain is authorized
+            if (this.authorizedDomains.length > 0 && !this.authorizedDomains.includes(this.currentDomain)) {
+                this.blockUnauthorizedUse();
+                return false;
+            }
+            
+            // Validate license format and expiration
+            if (!this.validateLicenseFormat(this.licenseKey)) {
+                this.blockUnauthorizedUse();
+                return false;
+            }
+            
+            this.isPro = this.userPlan !== 'free';
+            return true;
+            
+        } catch (error) {
+            this.blockUnauthorizedUse();
+            return false;
+        }
+    }
+
+    // Validate license key format
+    validateLicenseFormat(key) {
+        if (!key || typeof key !== 'string') return false;
+        
+        // License key format: CO-XXXX-XXXX-XXXX-XXXX (where X is alphanumeric)
+        const licensePattern = /^CO-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
+        return licensePattern.test(key);
+    }
+
+    // Check for unauthorized usage patterns
+    checkUnauthorizedUse() {
+        const usageCount = parseInt(localStorage.getItem('usageCount') || '0');
+        localStorage.setItem('usageCount', (usageCount + 1).toString());
+        
+        // If usage exceeds free limits without license
+        if (usageCount > this.maxFreeArticles) {
+            this.reportUnauthorizedUse();
+        }
+    }
+
+    // Report unauthorized usage
+    reportUnauthorizedUse() {
+        const reportData = {
+            domain: this.currentDomain,
+            userAgent: navigator.userAgent,
+            timestamp: new Date().toISOString(),
+            usageCount: localStorage.getItem('usageCount'),
+            fingerprint: this.generateFingerprint()
+        };
+        
+        // Store violation evidence
+        const violations = JSON.parse(localStorage.getItem('licenseViolations') || '[]');
+        violations.push(reportData);
+        localStorage.setItem('licenseViolations', JSON.stringify(violations.slice(-10)));
+        
+        this.showViolationWarning();
+    }
+
+    // Generate browser fingerprint for tracking
+    generateFingerprint() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.textBaseline = 'top';
+        ctx.font = '14px Arial';
+        ctx.fillText('Content Optimizer License Check', 2, 2);
+        
+        return btoa(canvas.toDataURL()).slice(0, 32);
+    }
+
+    // Block unauthorized usage
+    blockUnauthorizedUse() {
+        this.showLicenseBlock();
+        this.disablePremiumFeatures();
+    }
+
+    // Show license violation warning
+    showViolationWarning() {
+        const warning = document.createElement('div');
+        warning.style.cssText = `
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(220, 38, 38, 0.95); color: white; z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        `;
+        
+        warning.innerHTML = `
+            <div style="text-align: center; padding: 40px; max-width: 600px;">
+                <h1 style="font-size: 2rem; margin-bottom: 20px;">⚠️ LICENSE VIOLATION DETECTED</h1>
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">
+                    This domain (${this.currentDomain}) is not authorized to use Content Optimizer premium features.
+                </p>
+                <p style="margin-bottom: 30px;">
+                    Unauthorized use has been logged and will be reported. 
+                    This violation may result in legal action under copyright and intellectual property law.
+                </p>
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                    <h3>License ID: ${this.generateFingerprint()}</h3>
+                    <p>Domain: ${this.currentDomain}</p>
+                    <p>Time: ${new Date().toLocaleString()}</p>
+                </div>
+                <button onclick="window.location.href='mailto:licensing@contentoptimizer.com'" 
+                        style="background: white; color: #dc2626; padding: 15px 30px; border: none; 
+                               border-radius: 6px; font-size: 16px; cursor: pointer; margin-right: 10px;">
+                    Contact Licensing
+                </button>
+                <button onclick="this.parentElement.parentElement.remove()" 
+                        style="background: transparent; color: white; padding: 15px 30px; border: 2px solid white; 
+                               border-radius: 6px; font-size: 16px; cursor: pointer;">
+                    Continue with Free Version
+                </button>
+            </div>
+        `;
+        
+        document.body.appendChild(warning);
+    }
+
+    // Show license block screen
+    showLicenseBlock() {
+        if (document.getElementById('license-block')) return;
+        
+        const block = document.createElement('div');
+        block.id = 'license-block';
+        block.style.cssText = `
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9); color: white; z-index: 10000;
+            display: flex; align-items: center; justify-content: center;
+        `;
+        
+        block.innerHTML = `
+            <div style="text-align: center; padding: 40px;">
+                <h2>License Required</h2>
+                <p>This feature requires a valid Content Optimizer license.</p>
+                <button onclick="window.location.href='pricing.html'">Get License</button>
+            </div>
+        `;
+        
+        document.body.appendChild(block);
+    }
+
+    // Disable premium features
+    disablePremiumFeatures() {
+        this.isPro = false;
+        this.userPlan = 'free';
+    }
+
+    // Track usage for analytics and security
+    trackUsage() {
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.premium-feature')) {
+                this.logFeatureUsage(e.target.closest('.premium-feature').dataset.feature);
+            }
+        });
+    }
+
+    // Log feature usage
+    logFeatureUsage(feature) {
+        const usage = {
+            feature,
+            domain: this.currentDomain,
+            timestamp: new Date().toISOString(),
+            licensed: this.isPro
+        };
+        
+        const allUsage = JSON.parse(localStorage.getItem('featureUsage') || '[]');
+        allUsage.push(usage);
+        localStorage.setItem('featureUsage', JSON.stringify(allUsage.slice(-100)));
     }
 
     // Check if user can use premium features

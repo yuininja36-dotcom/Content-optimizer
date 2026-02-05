@@ -68,6 +68,31 @@ No installation required! Just open the HTML file in your browser.
 - [ ] Bulk content analysis
 - [ ] Integration with CMS platforms
 
-## License
+## License and Intellectual Property
 
-MIT License - Free to use and modify
+**IMPORTANT:** This software is protected by intellectual property law and is NOT open source.
+
+- **Proprietary Software** - All rights reserved to Content Optimizer
+- **License Required** - Commercial use requires valid license
+- **IP Protection** - Contains proprietary algorithms and trade secrets
+- **Anti-Tampering** - Advanced protection against unauthorized use
+- **Domain Licensing** - Licensed per domain with validation
+
+### LICENSE RESTRICTIONS:
+- ❌ No redistribution or resale
+- ❌ No reverse engineering or decompilation  
+- ❌ No modification or derivative works
+- ❌ No use on unauthorized domains
+- ✅ Personal use (free version only)
+- ✅ Commercial use (with valid license)
+
+For licensing inquiries: **licensing@contentoptimizer.com**
+
+### IP Protection Features:
+- Domain-based license validation
+- Browser fingerprinting for tracking
+- Watermarking and usage monitoring
+- Automatic violation detection
+- Legal action for copyright infringement
+
+**Violators will be prosecuted to the fullest extent of the law.**
